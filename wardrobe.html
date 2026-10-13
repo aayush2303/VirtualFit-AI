@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VirtualFit AI | My Wardrobe</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.wardrobe-page {
+    padding: 55px 6% 80px;
+}
+
+.wardrobe-header {
+    max-width: 1400px;
+    margin: auto;
+}
+
+.wardrobe-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+}
+
+.wardrobe-title h1 {
+    font-family: "Playfair Display";
+    font-size: clamp(40px,5vw,65px);
+    font-weight: 500;
+    letter-spacing: -2px;
+}
+
+.wardrobe-title h1 span {
+    color: #888;
+    font-style: italic;
+}
+
+.wardrobe-title p {
+    color: #888;
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 480px;
+    margin-top: 12px;
+}
+
+.add-btn {
+    background:#111;
+    color:white;
+    border:none;
+    padding:14px 19px;
+    border-radius:11px;
+    cursor:pointer;
+    font-size:10px;
+    white-space:nowrap;
+}
+
+.wardrobe-toolbar {
+    margin-top:40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    border-bottom:1px solid #e8e6e1;
+    padding-bottom:15px;
+}
+
+.categories {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.category {
+    padding:9px 15px;
+    border:1px solid #e3e1dc;
+    border-radius:20px;
+    background:white;
+    font-size:10px;
+    cursor:pointer;
+}
+
+.category.active,
+.category:hover {
+    background:#111;
+    color:white;
+    border-color:#111;
+}
+
+.search-box {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid #e3e1dc;
+    background:white;
+    padding:10px 13px;
+    border-radius:10px;
+    width:210px;
+}
+
+.search-box input {
+    border:none;
+    outline:none;
+    width:100%;
+    font-size:10px;
+}
+
+.wardrobe-grid {
+    margin-top:30px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.wardrobe-card {
+    background:white;
+    border:1px solid #e8e6e1;
+    border-radius:18px;
+    overflow:hidden;
+    position:relative;
+    transition:.3s;
+}
+
+.wardrobe-card:hover {
+    transform:translateY(-4px);
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+.wardrobe-image {
+    height:280px;
+    background:#f0efeb;
+    overflow:hidden;
+    position:relative;
+}
+
+.wardrobe-image img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.4s;
+}
+
+.wardrobe-card:hover img {
+    transform:scale(1.04);
+}
+
+.favorite {
+    position:absolute;
+    top:12px;
+    right:12px;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    border:none;
+    background:rgba(255,255,255,.9);
+    cursor:pointer;
+}
+
+.favorite.active {
+    background:#111;
+    color:white;
+}
+
+.wardrobe-info {
+    padding:15px;
+}
+
+.wardrobe-info small {
+    color:#aaa;
+    font-size:8px;
+    letter-spacing:1px;
+}
+
+.wardrobe-info h3 {
+    font-size:12px;
+    margin-top:5px;
+}
+
+.wardrobe-meta {
+    display:flex;
+    justify-content:space-between;
+    margin-top:9px;
+    color:#999;
+    font-size:9px;
+}
+
+.try-button {
+    width:100%;
+    margin-top:12px;
+    padding:10px;
+    background:#111;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:9px;
+}
+
+@media(max-width:1050px) {
+    .wardrobe-grid {
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:750px) {
+
+    .wardrobe-title {
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .wardrobe-toolbar {
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .search-box {
+        width:100%;
+    }
+
+    .wardrobe-grid {
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .wardrobe-image {
+        height:240px;
+    }
+}
+
+@media(max-width:480px) {
+    .wardrobe-page {
+        padding:40px 5% 60px;
+    }
+
+    .wardrobe-grid {
+        grid-template-columns:1fr;
+    }
+
+    .wardrobe-image {
+        height:320px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+<div class="logo-icon">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+</div>
+
+<div>
+<h2>VirtualFit</h2>
+<span>AI VIRTUAL TRY-ON</span>
+</div>
+</div>
+
+<nav class="desktop-nav">
+<a href="index.html">Home</a>
+<a href="virtual-try-on.html">Virtual Try-On</a>
+<a href="wardrobe.html" class="active">Wardrobe</a>
+<a href="how-it-works.html">How It Works</a>
+<a href="about.html">About</a>
+</nav>
+
+<div class="nav-actions">
+<button class="icon-btn">
+<i class="fa-regular fa-bell"></i>
+</button>
+
+<button class="profile">
+<div class="profile-avatar">C</div>
+<span>Creator</span>
+<i class="fa-solid fa-chevron-down"></i>
+</button>
+</div>
+
+<button class="menu-btn" id="menuBtn">
+<i class="fa-solid fa-bars"></i>
+</button>
+
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+<nav>
+<a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+<a href="virtual-try-on.html"><i class="fa-solid fa-wand-magic-sparkles"></i> Virtual Try-On</a>
+<a href="wardrobe.html"><i class="fa-solid fa-shirt"></i> Wardrobe</a>
+<a href="how-it-works.html"><i class="fa-solid fa-circle-info"></i> How It Works</a>
+<a href="about.html"><i class="fa-solid fa-user"></i> About</a>
+</nav>
+</div>
+
+<main class="wardrobe-page">
+
+<div class="wardrobe-header">
+
+<div class="wardrobe-title">
+
+<div>
+
+<div class="badge">
+<span class="pulse"></span>
+MY DIGITAL CLOSET
+</div>
+
+<h1>
+Your style,
+<span>your wardrobe.</span>
+</h1>
+
+<p>
+Save your favorite garments and build your personal digital
+wardrobe for faster AI-powered virtual try-ons.
+</p>
+
+</div>
+
+<button class="add-btn">
+<i class="fa-solid fa-plus"></i>
+Add Garment
+</button>
+
+</div>
+
+<div class="wardrobe-toolbar">
+
+<div class="categories">
+
+<button class="category active">All</button>
+<button class="category">Shirts</button>
+<button class="category">T-Shirts</button>
+<button class="category">Jackets</button>
+<button class="category">Dresses</button>
+<button class="category">Favorites</button>
+
+</div>
+
+<div class="search-box">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input type="text" placeholder="Search wardrobe...">
+</div>
+
+</div>
+
+<div class="wardrobe-grid">
+
+<div class="wardrobe-card">
+
+<div class="wardrobe-image">
+
+<img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=85">
+
+<button class="favorite">
+<i class="fa-regular fa-heart"></i>
+</button>
+
+</div>
+
+<div class="wardrobe-info">
+
+<small>SHIRT</small>
+<h3>Classic White Shirt</h3>
+
+<div class="wardrobe-meta">
+<span>Minimal</span>
+<span>$49</span>
+</div>
+
+<button class="try-button">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+Try This On
+</button>
+
+</div>
+
+</div>
+
+
+<div class="wardrobe-card">
+
+<div class="wardrobe-image">
+
+<img src="https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?auto=format&fit=crop&w=600&q=85">
+
+<button class="favorite">
+<i class="fa-regular fa-heart"></i>
+</button>
+
+</div>
+
+<div class="wardrobe-info">
+
+<small>SHIRT</small>
+<h3>Minimal Black Shirt</h3>
+
+<div class="wardrobe-meta">
+<span>Formal</span>
+<span>$55</span>
+</div>
+
+<button class="try-button">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+Try This On
+</button>
+
+</div>
+
+</div>
+
+
+<div class="wardrobe-card">
+
+<div class="wardrobe-image">
+
+<img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=600&q=85">
+
+<button class="favorite">
+<i class="fa-regular fa-heart"></i>
+</button>
+
+</div>
+
+<div class="wardrobe-info">
+
+<small>OUTERWEAR</small>
+<h3>Beige Casual Jacket</h3>
+
+<div class="wardrobe-meta">
+<span>Casual</span>
+<span>$89</span>
+</div>
+
+<button class="try-button">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+Try This On
+</button>
+
+</div>
+
+</div>
+
+
+<div class="wardrobe-card">
+
+<div class="wardrobe-image">
+
+<img src="https://images.unsplash.com/photo-1578681994506-b8f463449011?auto=format&fit=crop&w=600&q=85">
+
+<button class="favorite">
+<i class="fa-regular fa-heart"></i>
+</button>
+
+</div>
+
+<div class="wardrobe-info">
+
+<small>JACKET</small>
+<h3>Classic Denim Jacket</h3>
+
+<div class="wardrobe-meta">
+<span>Streetwear</span>
+<span>$79</span>
+</div>
+
+<button class="try-button">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+Try This On
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="footer-main">
+
+        <!-- Brand -->
+
+        <div class="footer-brand">
+
+            <div class="logo footer-logo">
+
+                <div class="logo-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+
+                <div>
+                    <h2>VirtualFit</h2>
+                    <span>AI Virtual try-on</span>
+                </div>
+
+            </div>
+
+            <p>
+                Experience the future of fashion with
+                AI-powered virtual try-on technology.
+            </p>
+
+            <div class="social-links">
+
+                <a href="#" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="#" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="#" aria-label="Pinterest">
+                    <i class="fa-brands fa-pinterest-p"></i>
+                </a>
+
+                <a href="#" aria-label="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Product -->
+
+        <div class="footer-column">
+
+            <h4>PRODUCT</h4>
+
+            <a href="virtual-try-on.html">Virtual try-On</a>
+            <a href="wardrobe.html">Wardrobe</a>
+            <a href="#">History</a>
+
+        </div>
+
+
+        <!-- Company -->
+
+        <div class="footer-column">
+
+            <h4>COMPANY</h4>
+
+            <a href="about.html">About VirtualFit</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="#">Technology</a>
+            <a href="#">Contact Us</a>
+
+        </div>
+
+
+        <!-- Support -->
+
+        <div class="footer-column">
+
+            <h4>SUPPORT</h4>
+
+            <a href="#">Help Center</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">FAQs</a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bottom Footer -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 VirtualFit AI. All rights reserved.
+        </p>
+
+        <div class="footer-status">
+
+            <span class="status-dot"></span>
+
+            AI Studio Online
+
+        </div>
+
+        <p class="made-with">
+
+            Designed with
+            <span>♥</span>
+            for the future of fashion.
+
+        </p>
+
+    </div>
+
+</footer>
+<script>
+
+const menuBtn=document.getElementById("menuBtn");
+const mobileMenu=document.getElementById("mobileMenu");
+
+menuBtn.addEventListener("click",()=>{
+
+mobileMenu.classList.toggle("open");
+
+const icon=menuBtn.querySelector("i");
+
+icon.classList.toggle("fa-bars");
+icon.classList.toggle("fa-xmark");
+
+});
+
+document.querySelectorAll(".favorite").forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+button.classList.toggle("active");
+
+const icon=button.querySelector("i");
+
+icon.classList.toggle("fa-regular");
+icon.classList.toggle("fa-solid");
+
+});
+
+});
+
+document.querySelectorAll(".category").forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+document.querySelectorAll(".category")
+.forEach(item=>item.classList.remove("active"));
+
+button.classList.add("active");
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

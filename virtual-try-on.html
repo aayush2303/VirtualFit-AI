@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VirtualFit AI | Virtual Try-On</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .tryon-page {
+            padding: 55px 6% 80px;
+        }
+
+        .page-heading {
+            max-width: 720px;
+            margin: 0 auto 45px;
+            text-align: center;
+        }
+
+        .page-heading .badge {
+            margin-bottom: 18px;
+        }
+
+        .page-heading h1 {
+            font-family: "Playfair Display";
+            font-size: clamp(42px, 5vw, 68px);
+            font-weight: 500;
+            letter-spacing: -2px;
+            line-height: 1.05;
+        }
+
+        .page-heading h1 span {
+            color: #888;
+            font-style: italic;
+        }
+
+        .page-heading p {
+            max-width: 600px;
+            margin: 20px auto 0;
+            color: #888;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .tryon-workspace {
+            max-width: 1400px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 390px 1fr;
+            gap: 22px;
+        }
+
+        .tryon-card {
+            background: white;
+            border: 1px solid #e8e6e1;
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 15px 50px rgba(0,0,0,.04);
+        }
+
+        .step-title {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            font-size: 9px;
+            color: #999;
+            font-weight: 700;
+        }
+
+        .step-title h3 {
+            font-size: 14px;
+        }
+
+        .upload-zone {
+            min-height: 230px;
+            border: 1.5px dashed #d5d2cb;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: .3s;
+            overflow: hidden;
+        }
+
+        .upload-zone:hover {
+            border-color: #111;
+            background: #fafafa;
+        }
+
+        .upload-zone i {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .upload-zone h4 {
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .upload-zone p {
+            color: #999;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .upload-zone img {
+            width: 100%;
+            height: 100%;
+            min-height: 230px;
+            object-fit: cover;
+        }
+        /* ================= PHOTO OPTIONS ================= */
+
+        .photo-options {
+            display: grid;
+            grid-template-columns: 1fr 30px 1fr;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .photo-option {
+            min-height: 205px;
+            border: 1px solid #e8e6e1;
+            border-radius: 17px;
+            padding: 20px 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: .3s;
+        }
+
+        .photo-option:hover {
+            border-color: #bbb;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,.04);
+        }
+
+        .photo-option-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #f3f2ef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 13px;
+        }
+
+        .photo-option-icon i {
+            font-size: 16px;
+        }
+
+        .photo-option h4 {
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .photo-option p {
+            color: #999;
+            font-size: 8px;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .photo-option-btn {
+            border: 1px solid #ddd;
+            background: white;
+            padding: 9px 11px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 8px;
+            transition: .25s;
+        }
+
+        .photo-option-btn:hover {
+            background: #111;
+            color: white;
+            border-color: #111;
+        }
+
+        .photo-option-btn i {
+            margin-right: 4px;
+        }
+
+        .photo-option-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-option-divider span {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #f5f4f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7px;
+            color: #999;
+            font-weight: 600;
+        }
+
+
+        /* ================= CAMERA ================= */
+
+        .camera-container {
+            display: none;
+            position: relative;
+            margin-top: 15px;
+            border-radius: 18px;
+            overflow: hidden;
+            background: #111;
+            aspect-ratio: 3 / 4;
+        }
+
+        .camera-container.active {
+            display: block;
+        }
+
+        .camera-container video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .camera-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .camera-frame {
+            width: 65%;
+            height: 75%;
+            border: 2px solid rgba(255,255,255,.7);
+            border-radius: 45% 45% 35% 35%;
+            box-shadow: 0 0 0 999px rgba(0,0,0,.22);
+        }
+
+        .camera-controls {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+        }
+
+        .camera-controls button {
+            border: none;
+            background: rgba(255,255,255,.9);
+            color: #111;
+            padding: 9px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 8px;
+        }
+
+        .camera-controls button i {
+            margin-right: 4px;
+        }
+
+        .camera-controls .capture-btn {
+            width: 58px;
+            height: 58px;
+            padding: 0;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,.7);
+            background: white;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.2);
+        }
+
+        .camera-controls .capture-btn i {
+            margin: 0;
+        }
+
+
+        /* ================= SELECTED PHOTO ================= */
+
+        .selected-photo {
+            display: none;
+            margin-top: 15px;
+            border: 1px solid #e8e6e1;
+            border-radius: 17px;
+            overflow: hidden;
+            background: #faf9f6;
+        }
+
+        .selected-photo.active {
+            display: block;
+        }
+
+        .selected-photo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        .selected-photo-header span {
+            font-size: 8px;
+            font-weight: 600;
+        }
+
+        .selected-photo-header span i {
+            color: #555;
+            margin-right: 5px;
+        }
+
+        .selected-photo-header button {
+            border: none;
+            background: transparent;
+            font-size: 8px;
+            color: #777;
+            cursor: pointer;
+        }
+
+        .selected-photo img {
+            width: 100%;
+            max-height: 260px;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        /* Hide photo choices after selection */
+
+        .photo-options.hidden {
+            display: none;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width:600px) {
+
+            .photo-options {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .photo-option {
+                min-height: 155px;
+            }
+
+            .photo-option-divider {
+                height: 25px;
+            }
+
+            .camera-container {
+                aspect-ratio: 3 / 4;
+            }
+
+        }
+        .tryon-divider {
+            height: 1px;
+            background: #eee;
+            margin: 28px 0;
+        }
+
+        .mini-garments {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 9px;
+        }
+
+        .mini-garment {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .mini-garment:hover {
+            transform: translateY(-2px);
+        }
+
+        .mini-garment.selected {
+            border: 2px solid #111;
+        }
+
+        .mini-garment img {
+            width: 100%;
+            height: 95px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .mini-garment span {
+            display: block;
+            padding: 8px;
+            font-size: 8px;
+            font-weight: 600;
+        }
+
+        .tryon-button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            background: #111;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-card {
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .preview-top span {
+            color: #999;
+            font-size: 8px;
+            letter-spacing: 1.5px;
+        }
+
+        .preview-top h2 {
+            font-family: "Playfair Display";
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .preview-canvas {
+            flex: 1;
+            min-height: 530px;
+            border-radius: 20px;
+            background: linear-gradient(135deg,#efeeea,#faf9f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preview-empty {
+            text-align: center;
+            max-width: 280px;
+        }
+
+        .preview-empty .big-icon {
+            width: 75px;
+            height: 75px;
+            margin: auto auto 20px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+            color: #aaa;
+        }
+
+        .preview-empty h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .preview-empty p {
+            color: #999;
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .preview-canvas img {
+            width: 100%;
+            height: 100%;
+            min-height: 530px;
+            object-fit: cover;
+        }
+
+        .preview-badge {
+            position: absolute;
+            left: 18px;
+            bottom: 18px;
+            padding: 9px 14px;
+            background: rgba(255,255,255,.9);
+            border-radius: 20px;
+            font-size: 9px;
+        }
+
+        .preview-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 17px;
+        }
+
+        .preview-bottom small {
+            color: #aaa;
+            font-size: 8px;
+        }
+
+        .preview-bottom strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .preview-actions button {
+            border: 1px solid #ddd;
+            background: white;
+            padding: 11px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        .preview-actions button:last-child {
+            background: #111;
+            color: white;
+            border-color: #111;
+        }
+
+        @media(max-width:900px) {
+            .tryon-workspace {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-card {
+                order: 1;
+            }
+
+            .tryon-card {
+                order: 2;
+            }
+        }
+
+        @media(max-width:600px) {
+            .tryon-page {
+                padding: 40px 5% 60px;
+            }
+
+            .mini-garments {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .preview-canvas {
+                min-height: 420px;
+            }
+
+            .preview-canvas img {
+                min-height: 420px;
+            }
+
+            .preview-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        <div class="logo-icon">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+
+        <div>
+            <h2>VirtualFit</h2>
+            <span>AI VIRTUAL TRY-ON</span>
+        </div>
+    </div>
+
+    <nav class="desktop-nav">
+        <a href="index.html">Home</a>
+        <a href="virtual-try-on.html" class="active">Virtual Try-On</a>
+        <a href="wardrobe.html">Wardrobe</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="about.html">About</a>
+    </nav>
+
+    <div class="nav-actions">
+        <button class="icon-btn">
+            <i class="fa-regular fa-bell"></i>
+        </button>
+
+        <button class="profile">
+            <div class="profile-avatar">C</div>
+            <span>Creator</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <button class="menu-btn" id="menuBtn">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav>
+        <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="virtual-try-on.html"><i class="fa-solid fa-wand-magic-sparkles"></i> Virtual Try-On</a>
+        <a href="wardrobe.html"><i class="fa-solid fa-shirt"></i> Wardrobe</a>
+        <a href="how-it-works.html"><i class="fa-solid fa-circle-info"></i> How It Works</a>
+        <a href="about.html"><i class="fa-solid fa-user"></i> About</a>
+    </nav>
+</div>
+
+<main class="tryon-page">
+
+    <section class="page-heading">
+
+        <div class="badge">
+            <span class="pulse"></span>
+            AI Virtual Try-on
+        </div>
+
+        <h1>
+            Create your
+            <span>perfect look.</span>
+        </h1>
+
+        <p>
+            Upload your photo, select an outfit from your wardrobe,
+            and let VirtualFit AI generate a realistic virtual try-on.
+        </p>
+
+    </section>
+
+    <section class="tryon-workspace">
+
+        <div class="tryon-card">
+
+            <div class="step-title">
+                <span class="step-number">01</span>
+                <h3>Your Photo</h3>
+            </div>
+
+            <input type="file" id="photoInput" accept="image/*" hidden>
+
+            <div class="photo-options">
+
+                <!-- Upload -->
+                <div class="photo-option" id="uploadOption">
+
+                    <div class="photo-option-icon">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+
+                    <h4>Upload Photo</h4>
+
+                    <p>
+                        Choose a photo from your device
+                    </p>
+
+                    <button type="button" class="photo-option-btn">
+                        <i class="fa-solid fa-upload"></i>
+                        Choose Photo
+                    </button>
+
+                </div>
+
+
+                <div class="photo-option-divider">
+                    <span>OR</span>
+                </div>
+
+
+                <!-- Camera -->
+                <div class="photo-option" id="cameraOption">
+
+                    <div class="photo-option-icon">
+                        <i class="fa-solid fa-camera"></i>
+                    </div>
+
+                    <h4>Use Live Camera</h4>
+
+                    <p>
+                        Take a photo using your camera
+                    </p>
+
+                    <button type="button" class="photo-option-btn" id="openCameraBtn">
+                        <i class="fa-solid fa-video"></i>
+                        Open Camera
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Camera Area -->
+
+            <div class="camera-container" id="cameraContainer">
+
+                <video id="cameraVideo" autoplay playsinline></video>
+
+                <div class="camera-overlay">
+                    <div class="camera-frame"></div>
+                </div>
+
+                <div class="camera-controls">
+
+                    <button type="button" id="closeCameraBtn">
+                        <i class="fa-solid fa-xmark"></i>
+                        Close
+                    </button>
+
+                    <button type="button" class="capture-btn" id="captureBtn">
+                        <i class="fa-solid fa-camera"></i>
+                    </button>
+
+                    <span></span>
+
+                </div>
+
+            </div>
+
+            <canvas id="cameraCanvas" hidden></canvas>
+
+
+            <!-- Selected Photo -->
+
+            <div class="selected-photo" id="selectedPhoto">
+
+                <div class="selected-photo-header">
+                    <span>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Photo Selected
+                    </span>
+
+                    <button type="button" id="changePhotoBtn">
+                        Change
+                    </button>
+                </div>
+
+                <img id="selectedPhotoImage" alt="Selected photo">
+
+            </div>
+
+            <div class="tryon-divider"></div>
+
+            <div class="step-title">
+                <span class="step-number">02</span>
+                <h3>Select Your Outfit</h3>
+            </div>
+
+            <div class="mini-garments">
+
+                <div class="mini-garment selected">
+                    <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=400&q=80">
+                    <span>Classic White</span>
+                </div>
+
+                <div class="mini-garment">
+                    <img src="https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?auto=format&fit=crop&w=400&q=80">
+                    <span>Minimal Black</span>
+                </div>
+
+                <div class="mini-garment">
+                    <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=400&q=80">
+                    <span>Beige Jacket</span>
+                </div>
+
+                <div class="mini-garment">
+                    <img src="https://images.unsplash.com/photo-1578681994506-b8f463449011?auto=format&fit=crop&w=400&q=80">
+                    <span>Denim Jacket</span>
+                </div>
+
+            </div>
+
+            <button class="tryon-button" id="tryOnBtn">
+                <span>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    Generate Virtual Try-On
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </div>
+
+        <div class="tryon-card preview-card">
+
+            <div class="preview-top">
+
+                <div>
+                    <span>AI PREVIEW</span>
+                    <h2>Your Virtual Look</h2>
+                </div>
+
+                <button class="favorite-btn">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+
+            </div>
+
+            <div class="preview-canvas" id="previewCanvas">
+
+                <div class="preview-empty">
+
+                    <div class="big-icon">
+                        <i class="fa-solid fa-person"></i>
+                    </div>
+
+                    <h3>Your AI look will appear here</h3>
+
+                    <p>
+                        Upload your photo and select an outfit
+                        to begin your virtual try-on.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="preview-bottom">
+
+                <div>
+                    <small>SELECTED STYLE</small>
+                    <strong>Classic White Shirt</strong>
+                </div>
+
+                <div class="preview-actions">
+                    <button>
+                        <i class="fa-solid fa-download"></i>
+                        Download
+                    </button>
+
+                    <button>
+                        <i class="fa-solid fa-share-nodes"></i>
+                        Share
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="footer-main">
+
+        <!-- Brand -->
+
+        <div class="footer-brand">
+
+            <div class="logo footer-logo">
+
+                <div class="logo-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+
+                <div>
+                    <h2>VirtualFit</h2>
+                    <span>AI Virtual try-on</span>
+                </div>
+
+            </div>
+
+            <p>
+                Experience the future of fashion with
+                AI-powered virtual try-on technology.
+            </p>
+
+            <div class="social-links">
+
+                <a href="#" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="#" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="#" aria-label="Pinterest">
+                    <i class="fa-brands fa-pinterest-p"></i>
+                </a>
+
+                <a href="#" aria-label="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Product -->
+
+        <div class="footer-column">
+
+            <h4>PRODUCT</h4>
+
+            <a href="virtual-try-on.html">Virtual try-On</a>
+            <a href="wardrobe.html">Wardrobe</a>
+            <a href="history.html">History</a>
+
+        </div>
+
+
+        <!-- Company -->
+
+        <div class="footer-column">
+
+            <h4>COMPANY</h4>
+
+            <a href="about.html">About VirtualFit</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="#">Technology</a>
+            <a href="#">Contact Us</a>
+
+        </div>
+
+
+        <!-- Support -->
+
+        <div class="footer-column">
+
+            <h4>SUPPORT</h4>
+
+            <a href="#">Help Center</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">FAQs</a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bottom Footer -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 VirtualFit AI. All rights reserved.
+        </p>
+
+        <div class="footer-status">
+
+            <span class="status-dot"></span>
+
+            AI Studio Online
+
+        </div>
+
+        <p class="made-with">
+
+            Designed with
+            <span>♥</span>
+            for the future of fashion.
+
+        </p>
+
+    </div>
+
+</footer>
+
+<script>
+
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+
+menuBtn.addEventListener("click", () => {
+
+    mobileMenu.classList.toggle("open");
+
+    const icon = menuBtn.querySelector("i");
+
+    icon.classList.toggle("fa-bars");
+    icon.classList.toggle("fa-xmark");
+
+});
+
+document.querySelectorAll(".mobile-menu a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        mobileMenu.classList.remove("open");
+
+        const icon = menuBtn.querySelector("i");
+
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+
+    });
+
+});
+
+
+const photoInput = document.getElementById("photoInput");
+const uploadZone = document.getElementById("uploadZone");
+
+photoInput.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        uploadZone.innerHTML = `
+            <img src="${e.target.result}" alt="Uploaded photo">
+        `;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+document.querySelectorAll(".mini-garment").forEach(card => {
+
+    card.addEventListener("click", function() {
+
+        document.querySelectorAll(".mini-garment")
+            .forEach(item => item.classList.remove("selected"));
+
+        this.classList.add("selected");
+
+    });
+
+});
+
+
+document.getElementById("tryOnBtn").addEventListener("click", function() {
+
+    const preview = document.getElementById("previewCanvas");
+
+    preview.innerHTML = `
+        <div style="text-align:center">
+            <i class="fa-solid fa-wand-magic-sparkles"
+               style="font-size:35px;margin-bottom:18px;"></i>
+
+            <h3>AI is creating your look...</h3>
+
+            <p style="color:#999;font-size:10px;margin-top:8px;">
+                Analyzing pose, body shape and garment texture
+            </p>
+        </div>
+    `;
+
+    setTimeout(() => {
+
+        preview.innerHTML = `
+            <img
+                src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=85"
+                alt="AI virtual try-on result">
+
+            <div class="preview-badge">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                AI Generated Preview
+            </div>
+        `;
+
+    }, 2500);
+
+});
+
+</script>
+
+</body>
+</html>

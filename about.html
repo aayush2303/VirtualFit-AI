@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VirtualFit AI | About</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.about-page {
+    padding:65px 6% 90px;
+}
+
+.about-hero {
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.about-hero h1 {
+    font-family:"Playfair Display";
+    font-size:clamp(45px,6vw,78px);
+    font-weight:500;
+    letter-spacing:-3px;
+    line-height:1.05;
+    margin-top:20px;
+}
+
+.about-hero h1 span {
+    color:#888;
+    font-style:italic;
+}
+
+.about-hero p {
+    max-width:650px;
+    margin:25px auto;
+    color:#888;
+    font-size:14px;
+    line-height:1.9;
+}
+
+.about-main {
+    max-width:1200px;
+    margin:70px auto 0;
+}
+
+.about-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+}
+
+.about-card {
+    background:white;
+    border:1px solid #e8e6e1;
+    border-radius:22px;
+    padding:35px;
+}
+
+.about-card.dark {
+    background:#111;
+    color:white;
+}
+
+.about-card .eyebrow {
+    font-size:8px;
+    letter-spacing:1.5px;
+    color:#999;
+}
+
+.about-card.dark .eyebrow {
+    color:#777;
+}
+
+.about-card h2 {
+    font-family:"Playfair Display";
+    font-size:30px;
+    font-weight:500;
+    margin:15px 0;
+}
+
+.about-card p {
+    color:#888;
+    font-size:11px;
+    line-height:1.9;
+}
+
+.about-card.dark p {
+    color:#888;
+}
+
+.values {
+    margin-top:22px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.value-card {
+    background:white;
+    border:1px solid #e8e6e1;
+    border-radius:18px;
+    padding:25px;
+}
+
+.value-card i {
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#f3f2ef;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:18px;
+}
+
+.value-card h3 {
+    font-size:12px;
+    margin-bottom:8px;
+}
+
+.value-card p {
+    color:#999;
+    font-size:9px;
+    line-height:1.7;
+}
+
+.project-note {
+    margin-top:22px;
+    padding:30px;
+    background:#f0efeb;
+    border-radius:20px;
+    text-align:center;
+}
+
+.project-note h2 {
+    font-family:"Playfair Display";
+    font-size:27px;
+    font-weight:500;
+}
+
+.project-note p {
+    max-width:650px;
+    margin:12px auto 0;
+    color:#888;
+    font-size:10px;
+    line-height:1.8;
+}
+
+@media(max-width:750px) {
+
+    .about-page {
+        padding:45px 5% 60px;
+    }
+
+    .about-grid {
+        grid-template-columns:1fr;
+    }
+
+    .values {
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+
+<div class="logo-icon">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+</div>
+
+<div>
+<h2>VirtualFit</h2>
+<span>AI VIRTUAL TRY-ON</span>
+</div>
+
+</div>
+
+<nav class="desktop-nav">
+
+<a href="index.html">Home</a>
+<a href="virtual-try-on.html">Virtual Try-On</a>
+<a href="wardrobe.html">Wardrobe</a>
+<a href="how-it-works.html">How It Works</a>
+<a href="about.html" class="active">About</a>
+
+</nav>
+
+<div class="nav-actions">
+
+<button class="icon-btn">
+<i class="fa-regular fa-bell"></i>
+</button>
+
+<button class="profile">
+<div class="profile-avatar">C</div>
+<span>Creator</span>
+<i class="fa-solid fa-chevron-down"></i>
+</button>
+
+</div>
+
+<button class="menu-btn" id="menuBtn">
+<i class="fa-solid fa-bars"></i>
+</button>
+
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+
+<nav>
+
+<a href="index.html">
+<i class="fa-solid fa-house"></i>
+Home
+</a>
+
+<a href="virtual-try-on.html">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+Virtual Try-On
+</a>
+
+<a href="wardrobe.html">
+<i class="fa-solid fa-shirt"></i>
+Wardrobe
+</a>
+
+<a href="how-it-works.html">
+<i class="fa-solid fa-circle-info"></i>
+How It Works
+</a>
+
+<a href="about.html">
+<i class="fa-solid fa-user"></i>
+About
+</a>
+
+</nav>
+
+</div>
+
+
+<main class="about-page">
+
+<section class="about-hero">
+
+<div class="badge">
+
+<span class="pulse"></span>
+
+ABOUT VIRTUALFIT AI
+
+</div>
+
+<h1>
+The future of fashion is
+<span>virtual.</span>
+</h1>
+
+<p>
+VirtualFit AI is an AI-powered virtual fashion try-on
+system designed to help users visualize clothing on
+themselves before making a fashion decision.
+</p>
+
+</section>
+
+
+<section class="about-main">
+
+<div class="about-grid">
+
+<div class="about-card">
+
+<span class="eyebrow">THE PROBLEM</span>
+
+<h2>
+Shopping should feel
+more personal.
+</h2>
+
+<p>
+Online fashion shopping often makes it difficult for users
+to understand how a garment will look on their own body.
+Traditional product photographs cannot represent every
+individual's appearance, proportions and style.
+</p>
+
+</div>
+
+
+<div class="about-card dark">
+
+<span class="eyebrow">OUR VISION</span>
+
+<h2>
+Making fashion
+more visual.
+</h2>
+
+<p>
+VirtualFit AI explores how artificial intelligence and
+computer vision can create a more interactive fashion
+experience by allowing users to visualize garments
+through virtual try-on technology.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="values">
+
+<div class="value-card">
+
+<i class="fa-solid fa-brain"></i>
+
+<h3>AI Powered</h3>
+
+<p>
+Uses artificial intelligence concepts to analyze images
+and generate personalized virtual fashion experiences.
+</p>
+
+</div>
+
+
+<div class="value-card">
+
+<i class="fa-solid fa-user"></i>
+
+<h3>User Focused</h3>
+
+<p>
+Designed around a simple workflow that allows users
+to upload, select, generate and review their looks.
+</p>
+
+</div>
+
+
+<div class="value-card">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+<h3>Privacy Conscious</h3>
+
+<p>
+The platform is designed with user image privacy and
+responsible handling of visual data in mind.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="project-note">
+
+<h2>
+Built as an AI & Computer Science Project
+</h2>
+
+<p>
+VirtualFit AI demonstrates the application of modern
+artificial intelligence, computer vision, web development
+and user interface design concepts in a practical
+fashion technology use case.
+</p>
+
+</div>
+
+</section>
+
+</main>
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="footer-main">
+
+        <!-- Brand -->
+
+        <div class="footer-brand">
+
+            <div class="logo footer-logo">
+
+                <div class="logo-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+
+                <div>
+                    <h2>VirtualFit</h2>
+                    <span>AI Virtual try-on</span>
+                </div>
+
+            </div>
+
+            <p>
+                Experience the future of fashion with
+                AI-powered virtual try-on technology.
+            </p>
+
+            <div class="social-links">
+
+                <a href="#" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="#" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="#" aria-label="Pinterest">
+                    <i class="fa-brands fa-pinterest-p"></i>
+                </a>
+
+                <a href="#" aria-label="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Product -->
+
+        <div class="footer-column">
+
+            <h4>PRODUCT</h4>
+
+            <a href="virtual-try-on.html">Virtual try-On</a>
+            <a href="wardrobe.html">Wardrobe</a>
+            <a href="history.html">History</a>
+
+        </div>
+
+
+        <!-- Company -->
+
+        <div class="footer-column">
+
+            <h4>COMPANY</h4>
+
+            <a href="about.html">About VirtualFit</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="#">Technology</a>
+            <a href="#">Contact Us</a>
+
+        </div>
+
+
+        <!-- Support -->
+
+        <div class="footer-column">
+
+            <h4>SUPPORT</h4>
+
+            <a href="#">Help Center</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">FAQs</a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bottom Footer -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 VirtualFit AI. All rights reserved.
+        </p>
+
+        <div class="footer-status">
+
+            <span class="status-dot"></span>
+
+            AI Studio Online
+
+        </div>
+
+        <p class="made-with">
+
+            Designed with
+            <span>♥</span>
+            for the future of fashion.
+
+        </p>
+
+    </div>
+
+</footer>
+<script>
+
+const menuBtn=document.getElementById("menuBtn");
+const mobileMenu=document.getElementById("mobileMenu");
+
+menuBtn.addEventListener("click",()=>{
+
+mobileMenu.classList.toggle("open");
+
+const icon=menuBtn.querySelector("i");
+
+icon.classList.toggle("fa-bars");
+icon.classList.toggle("fa-xmark");
+
+});
+
+</script>
+
+</body>
+</html>

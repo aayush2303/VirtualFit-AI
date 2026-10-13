@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | VirtualFit AI</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", "Segoe UI", sans-serif;
+            background: #f7f5f0;
+            color: #1d1d1d;
+            min-height: 100vh;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            width: 100%;
+            padding: 22px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.82);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Logo */
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .logo-icon {
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 12px;
+
+            background: #111;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .logo h2 {
+
+            font-family: "Playfair Display";
+
+            font-size: 21px;
+        }
+
+        .logo span {
+
+            font-size: 7px;
+
+            letter-spacing: 2px;
+
+            color: #888;
+        }
+
+
+        .back-home {
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .back-home:hover {
+            color: #b18a45;
+        }
+
+        /* ================= PAGE ================= */
+
+        .login-page {
+            min-height: calc(100vh - 75px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-page::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: rgba(190, 155, 92, 0.12);
+            filter: blur(80px);
+            top: -150px;
+            left: -120px;
+        }
+
+        .login-page::after {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: rgba(150, 150, 150, 0.08);
+            filter: blur(80px);
+            bottom: -150px;
+            right: -100px;
+        }
+
+        /* ================= CARD ================= */
+
+        .login-card {
+            width: 100%;
+            max-width: 440px;
+            background: rgba(255,255,255,0.88);
+            border: 1px solid rgba(255,255,255,0.9);
+            border-radius: 26px;
+            padding: 42px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.09);
+            backdrop-filter: blur(20px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-icon {
+            width: 62px;
+            height: 62px;
+            margin: 0 auto 20px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1c1c1c;
+            color: #d6b36b;
+            font-size: 24px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .login-card h1 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 8px;
+            letter-spacing: -0.8px;
+        }
+
+        .login-card .subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        /* ================= INPUT ================= */
+
+        .input-group {
+            margin-bottom: 19px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-box > i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 15px;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 52px;
+            border: 1px solid #dedbd5;
+            background: #faf9f6;
+            border-radius: 14px;
+            padding: 0 45px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-box input:focus {
+            border-color: #b18a45;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(177,138,69,0.10);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            color: #999;
+            cursor: pointer;
+        }
+
+        /* ================= OPTIONS ================= */
+
+        .login-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 5px 0 23px;
+            font-size: 13px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #666;
+        }
+
+        .remember input {
+            accent-color: #b18a45;
+        }
+
+        .forgot {
+            color: #a77d34;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .login-btn {
+            width: 100%;
+            height: 53px;
+            border: none;
+            border-radius: 14px;
+            background: #1b1b1b;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #b18a45;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(177,138,69,0.22);
+        }
+
+        /* ================= DIVIDER ================= */
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e4e1db;
+        }
+
+        /* ================= GOOGLE ================= */
+
+        .google-btn {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #dedbd5;
+            border-radius: 14px;
+            background: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            color: #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .google-btn:hover {
+            border-color: #b18a45;
+            transform: translateY(-1px);
+        }
+
+        .google-btn i {
+            color: #4285f4;
+        }
+
+        /* ================= REGISTER ================= */
+
+        .register-text {
+            text-align: center;
+            margin-top: 26px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .register-text a {
+            color: #a77d34;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* ================= TOAST ================= */
+
+        .toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            background: #1d1d1d;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            display: none;
+            z-index: 100;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 18px 5%;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .login-page {
+                padding: 35px 16px;
+            }
+
+            .login-card {
+                padding: 30px 22px;
+                border-radius: 22px;
+            }
+
+            .login-card h1 {
+                font-size: 27px;
+            }
+
+            .login-options {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-icon">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+
+        <div>
+            <h2>VirtualFit</h2>
+            <span>AI Virtual try-on</span>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-home">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Home
+    </a>
+</header>
+
+
+<main class="login-page">
+
+    <div class="login-card">
+
+        <div class="login-icon">
+            <i class="fa-solid fa-user"></i>
+        </div>
+
+        <h1>Login</h1>
+
+        <p class="subtitle">
+            Sign in to continue your personalized fashion experience.
+        </p>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+                <label>Email Address</label>
+
+                <div class="input-box">
+                    <i class="fa-regular fa-envelope"></i>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required>
+                </div>
+            </div>
+
+
+            <div class="input-group">
+                <label>Password</label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required>
+
+                    <button type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()">
+
+                        <i class="fa-regular fa-eye" id="eyeIcon"></i>
+
+                    </button>
+
+                </div>
+            </div>
+
+
+            <div class="login-options">
+
+                <label class="remember">
+                    <input type="checkbox">
+                    Remember me
+                </label>
+
+                <a href="#" class="forgot">
+                    Forgot password?
+                </a>
+
+            </div>
+
+
+            <button type="submit" class="login-btn">
+                Sign In
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </form>
+
+
+        <div class="divider">
+            OR CONTINUE WITH
+        </div>
+
+
+        <button class="google-btn" onclick="googleLogin()">
+            <i class="fa-brands fa-google"></i>
+            Continue with Google
+        </button>
+
+
+        <p class="register-text">
+            Don't have an account?
+            <a href="#">Create Account</a>
+        </p>
+
+    </div>
+
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+    function togglePassword() {
+
+        const password = document.getElementById("password");
+        const eyeIcon = document.getElementById("eyeIcon");
+
+        if (password.type === "password") {
+
+            password.type = "text";
+
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+
+        } else {
+
+            password.type = "password";
+
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+
+
+    function showToast(message) {
+
+        const toast = document.getElementById("toast");
+
+        toast.textContent = message;
+        toast.style.display = "block";
+
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 3000);
+    }
+
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        if (!email || !password) {
+            showToast("Please enter your login details.");
+            return;
+        }
+
+        /*
+            Frontend demonstration only.
+
+            Connect this form to your backend/database
+            for real authentication.
+        */
+
+        showToast("Login successful!");
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1200);
+
+    });
+
+
+    function googleLogin() {
+
+        showToast("Google login will be connected to the backend.");
+
+    }
+
+</script>
+
+</body>
+</html>

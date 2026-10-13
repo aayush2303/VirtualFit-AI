@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VirtualFit AI | AI Virtual Try-On</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        <div class="logo-icon">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+
+        <div>
+            <h2>VirtualFit</h2>
+            <span>AI Virtual try-on</span>
+        </div>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="virtual-try-on.html">Virtual try-on</a>
+        <a href="wardrobe.html">Wardrobe</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="about.html">About</a>
+    </nav>
+
+    <div class="nav-actions">
+        <button class="icon-btn" title="Notifications">
+            <i class="fa-regular fa-bell"></i>
+        </button>
+
+        <button class="profile">
+            <div class="profile-avatar">C</div>
+            <span>Creator</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <!-- Tablet / Mobile Menu Button -->
+    <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+</header>
+
+<!-- Tablet / Mobile Navigation -->
+<div class="mobile-menu" id="mobileMenu">
+    <nav>
+        <a href="#home"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#Virtual_try-on"><i class="fa-solid fa-wand-magic-sparkles"></i> Virtual Try-On</a>
+        <a href="#wardrobe"><i class="fa-solid fa-shirt"></i> Wardrobe</a>
+        <a href="#how-it-works"><i class="fa-solid fa-circle-info"></i> How It Works</a>
+        <a href="#history"><i class="fa-solid fa-clock-rotate-left"></i> History</a>
+        <a href="#about"><i class="fa-solid fa-user"></i> About</a>
+    </nav>
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="hero" id="studio">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                <span class="pulse"></span>
+                AI POWERED FASHION
+            </div>
+
+            <h1>
+                See yourself in
+                <span>every style.</span>
+            </h1>
+
+            <p>
+                Experience realistic AI-powered virtual try-on.
+                Upload your photo, select a garment, and let VirtualFit
+                create your personalized look.
+            </p>
+
+        </div>
+
+    </section>
+        <!-- ================= LANDSCAPE IMAGE ================= -->
+
+        <div class="hero-image">
+
+            <img
+                src="image.jpg"
+                alt="Fashion collection">
+
+            <!-- Image Overlay -->
+
+            <div class="hero-image-overlay">
+
+                <span>
+                    <i class="fa-solid fa-sparkles"></i>
+                    AI Fashion Experience
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= CTA BUTTONS ================= -->
+
+        <div class="hero-buttons">
+
+            <a href="virtual-try-on.html"
+               class="hero-primary-btn">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                Start Virtual Try-On
+
+            </a>
+
+
+            <a href="wardrobe.html"
+               class="hero-secondary-btn">
+
+                Explore Collection
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+    
+    <!-- ================= FEATURES ================= -->
+
+    <section class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+
+            <div>
+                <h4>Fast AI Generation</h4>
+                <p>
+                    Generate realistic virtual looks in seconds.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                <i class="fa-solid fa-user-check"></i>
+            </div>
+
+            <div>
+                <h4>Natural Fit</h4>
+                <p>
+                    AI adapts garments to your body structure.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <div>
+                <h4>Privacy First</h4>
+                <p>
+                    Your images remain protected and private.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= TOAST ================= -->
+
+<div class="toast" id="toast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span>Action completed</span>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="footer-main">
+
+        <!-- Brand -->
+
+        <div class="footer-brand">
+
+            <div class="logo footer-logo">
+
+                <div class="logo-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+
+                <div>
+                    <h2>VirtualFit</h2>
+                    <span>AI Virtual try-on</span>
+                </div>
+
+            </div>
+
+            <p>
+                Experience the future of fashion with
+                AI-powered virtual try-on technology.
+            </p>
+
+            <div class="social-links">
+
+                <a href="#" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="#" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="#" aria-label="Pinterest">
+                    <i class="fa-brands fa-pinterest-p"></i>
+                </a>
+
+                <a href="#" aria-label="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Product -->
+
+        <div class="footer-column">
+
+            <h4>PRODUCT</h4>
+
+            <a href="virtual-try-on.html">Virtual try-On</a>
+            <a href="wardrobe.html">Wardrobe</a>
+            <a href="#">History</a>
+
+        </div>
+
+
+        <!-- Company -->
+
+        <div class="footer-column">
+
+            <h4>COMPANY</h4>
+
+            <a href="about.html">About VirtualFit</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="#">Technology</a>
+            <a href="#">Contact Us</a>
+
+        </div>
+
+
+        <!-- Support -->
+
+        <div class="footer-column">
+
+            <h4>SUPPORT</h4>
+
+            <a href="#">Help Center</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">FAQs</a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bottom Footer -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 VirtualFit AI. All rights reserved.
+        </p>
+
+        <div class="footer-status">
+
+            <span class="status-dot"></span>
+
+            AI Studio Online
+
+        </div>
+
+        <p class="made-with">
+
+            Designed with
+            <span>♥</span>
+            for the future of fashion.
+
+        </p>
+
+    </div>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
